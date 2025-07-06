@@ -1,0 +1,52 @@
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./www:/var/www/html
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - php
+      - mysql
+    networks:
+      - app
+
+  php:
+    build:
+      context: ./docker/php
+      args:
+      - TIME_ZONE=${TIME_ZONE}
+      - USER_NAME=${USER_NAME}
+      - USER_ID=${USER_ID}
+      - USER_GROUP_NAME=${USER_GROUP_NAME}
+      - USER_GROUP_ID=${USER_GROUP_ID}
+    volumes:
+      - ./www:/var/www/html
+    env_file:
+      - .env
+    networks:
+      - app
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_con
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge
+
+volumes:
+  mysql_data:
