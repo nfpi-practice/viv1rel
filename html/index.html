@@ -3,17 +3,20 @@
 <head> <!-- Секция метаданных документа -->
     <meta charset="UTF-8"> <!-- Установка кодировки UTF-8 -->
     <title>HTML-страница</title> <!-- Заголовок страницы (отображается во вкладке браузера) -->
+    <link rel="stylesheet" href="css/styles.css"> <!-- Подключение файла styles.css -->
 </head>
 <body> <!-- Тело документа (видимая часть страницы) -->
 
 <!-- Header -->
 <header>
-    <img src="logo.png" alt="Логотип компании" width="100"> <!-- Логотип компании -->
-    <!-- alt - альтернативный текст для изображения (важно для доступности) -->
+    <div class="logo-container"> <!-- Контейнер .logo-container для группировки логотипа и названия -->
+        <img class="logo" src="images/logo.png" alt="Логотип компании" width="100"> <!-- Логотип компании -->
+        <!-- alt - альтернативный текст для изображения (важно для доступности) -->
+        <p class="logo">Lorem ipsum</p>
+    </div>
 
     <!-- Основная навигация -->
     <nav id="section0">
-        <h2>Menu</h2>
         <ul>
             <!-- Список пунктов меню -->
             <li><a href="#section0">Nav</a></li> <!-- #section0 - Уникальный идентификатор для якорных ссылок -->
@@ -33,8 +36,6 @@
         <!-- Форма для ввода данных -->
         <form>
             <div class="form-input">
-                <h2>Title</h2>
-
                 <!-- Текстовое поле -->
                 <div>
                     <label for="text">text:</label> <!-- Связь метки с полем ввода через атрибут for -->
@@ -75,13 +76,18 @@
                         <option value="value3">3</option>
                     </select>
                 </div>
+
+                <!-- Кнопка -->
+                <div class="form-button">
+                    <button type="submit">Submit</button>
+                </div>
             </div>
         </form>
     </section>
 
     <!-- Вторая секция с таблицей -->
     <section id="section2">
-        <h2>Title</h2>
+        <h1>Section 2</h1>
 
         <table>
             <!-- Создание таблицы -->
@@ -120,7 +126,6 @@
 
     <!-- Ссылки на соцсети -->
     <div class="social">
-        <h3>Social:</h3>
         <a href="https://vk.com" target="_blank">VK</a> <!-- target="_blank" открывает ссылку в новой вкладке -->
         <a href="https://facebook.com" target="_blank">Facebook</a>
         <a href="https://twitter.com" target="_blank">Twitter</a>
