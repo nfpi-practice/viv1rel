@@ -1,140 +1,149 @@
-/* Основные стили для всей страницы */
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+:root {
+    /* Цветовая палитра */
+    --color-primary: #222;
+    --color-secondary: #444;
+    --color-text: #333;
+    --color-text-light: white;
+
+    /* Размеры и отступы */
+    --spacing-small: 5px;
+    --spacing-medium: 15px;
+    --spacing-large: 20px;
 }
 
+/* Основные стили */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-    display: flex;
-    flex-direction: column;
+    margin: 0;
+    padding: 0;
     min-height: 100vh;
+    display: grid;
+    grid-template-areas:
+        "header"
+        "main"
+        "footer";
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr;
+    grid-gap: var(--spacing-large);
+    color: var(--color-text);
 }
 
-/* Шапка сайта */
+/* Шапка */
 header {
-    background-color: #222;
-    color: #fff;
-    padding: 20px;
+    grid-area: header;
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    padding: var(--spacing-large);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #444;
 }
 
-/* Контейнер с логотипом и названием */
 .logo-container {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: var(--spacing-medium);
 }
 
-/* Логотип в шапке */
 header img.logo {
     width: 100px;
     border-radius: 50%;
-    border: 2px solid #fff;
+    border: 2px solid var(--color-text-light);
 }
 
-/* Название компании */
-header p.logo {
-    margin: 0;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #fff;
-}
-
-/* Меню навигации */
+/* Навигация */
 nav ul {
+    display: flex;
+    gap: var(--spacing-medium);
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex;
-    gap: 15px;
+    position: relative;
 }
 
 nav a {
-    color: #fff;
+    color: var(--color-text-light);
     text-decoration: none;
-    padding: 8px 12px;
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
+    padding: var(--spacing-small) 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
-nav a:hover {
-    background-color: #444;
-    border-radius: 3px;
-    border-color: #777;
+nav ul li {
+    position: relative;
+}
+
+/* Добавляем стрелочку для пунктов с подменю */
+nav ul li:has(.submenu) > a::after {
+    content: "▼";
+    font-size: 0.6em;
+    margin-left: 5px;
+    transition: transform 0.2s ease;
+}
+
+/* Анимация стрелочки при наведении */
+nav ul li:hover:has(.submenu) > a::after {
+    transform: rotate(180deg);
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    background-color: var(--color-secondary);
+    padding: var(--spacing-small) 0;
+    min-width: 150px;
+    z-index: 1;
+}
+
+nav ul li:hover .submenu {
+    display: block;
 }
 
 /* Основное содержимое */
 main {
-    padding: 20px;
+    grid-area: main;
+    padding: var(--spacing-large);
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
-    flex: 1;
 }
 
-/* Секции на странице */
 section {
-    background-color: #fff;
-    padding: 20px;
-    margin-bottom: 20px;
+    background-color: var(--color-text-light);
+    padding: var(--spacing-large);
+    margin-bottom: var(--spacing-large);
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    border: 1px solid #ddd;
-}
-
-/* Заголовки */
-h1 {
-    color: #222;
-    margin-top: 0;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
 }
 
 /* Форма */
 form {
+    width: 400px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    justify-content: flex-start;
+    gap: var(--spacing-medium);
 }
 
-.form-input > div {
+form > label {
+    width: 100%;
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 5px;
+    justify-items: flex-start;
 }
 
-label {
-    min-width: 80px;
-    margin: 0;
-}
-
-input:not([type="radio"]):not([type="checkbox"]),
-select {
-    padding: 6px 8px;
+input[type="text"], input[type="email"], input[type="password"], button, select {
+    padding: 8px 12px;
     border: 1px solid #ccc;
     border-radius: 3px;
-    width: 200px;
-    background-color: #f9f9f9;
+    width: 100%;
+    box-sizing: border-box;
+    height: 40px;
+    margin: 5px 0;
 }
 
-input[type="radio"],
-input[type="checkbox"] {
-    margin: 0;
-    width: auto;
-}
-
-input[type="radio"] + label,
-input[type="checkbox"] + label {
-    min-width: auto;
-    order: 1;
+input {
+    margin-right: 10px;
 }
 
 input:focus, select:focus {
@@ -143,17 +152,10 @@ input:focus, select:focus {
     box-shadow: 0 0 0 2px rgba(119,119,119,0.2);
 }
 
-/* Кнопка */
 button {
-    padding: 6px 12px;
-    background-color: #444;
-    color: white;
-    border: none;
-    border-radius: 3px;
+    background-color: var(--color-secondary);
+    color: var(--color-text-light);
     cursor: pointer;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-    margin-top: 10px;
 }
 
 button:hover {
@@ -167,121 +169,116 @@ button:active {
     box-shadow: none;
 }
 
-/* Контейнер для кнопки */
-.form-button {
-    margin-top: 15px;
-    display: flex;
-    justify-content: flex-start;
-}
-
 /* Таблица */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
-    border: 1px solid #ddd;
+    margin-top: var(--spacing-medium);
 }
 
 th, td {
     padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #ddd;
 }
 
 th {
-    background-color: #444;
-    color: #fff;
+    background-color: var(--color-secondary);
+    color: var(--color-text-light);
+}
+
+tr:nth-child(even) {
+    background-color: #b3b3b3;
 }
 
 tr:hover {
-    background-color: #eee;
+    background-color: #5e5e5e;
+}
+
+td[datatype="number"] {
+    text-align: right;
+}
+
+td[datatype="text"] {
+    text-align: left;
 }
 
 /* Footer */
 footer {
-    background-color: #222;
-    color: #fff;
-    padding: 30px 20px;
+    grid-area: footer;
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    padding: var(--spacing-large);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid #444;
-    margin-top: auto;
 }
 
-/* Блоки внутри footer */
-.social {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-}
-
-.address {
-    display: inline;
-}
-
-/* Соцсети */
-.social {
-    align-items: flex-end;
-    text-align: right;
-}
-
-footer a {
-    color: #fff;
+footer address a {
+    color: inherit;
     text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-footer a:hover {
-    color: #ccc;
 }
 
 .social a {
-    display: inline-block;
-    margin-left: 15px;
-    margin-bottom: 5px;
+    color: var(--color-text-light);
+    text-decoration: none;
+    margin-left: var(--spacing-medium);
 }
 
-/* Адаптивность для мобильных */
+/* Адаптивность */
 @media (max-width: 576px) {
-    header {
-        flex-direction: column;
-        text-align: center;
-        gap: 15px;
+    body {
+        grid-gap: var(--spacing-small);
     }
 
-    .logo-container {
+    header {
         flex-direction: column;
+        gap: var(--spacing-medium);
     }
 
     nav ul {
         flex-direction: column;
-        align-items: center;
         gap: 10px;
+    }
+
+    table {
+        max-width: calc(100% - 40px);
+        width: calc(100% - 40px);
+        font-size: 0.85em;
+        margin-right: 20px;
+    }
+
+    th, td {
+        padding: 6px 8px;
     }
 
     footer {
         flex-direction: column;
-        text-align: center;
-        gap: 20px;
-        padding: 20px;
-    }
-
-    footer address,
-    footer .social {
-        align-items: center;
-        text-align: center;
-        width: 100%;
-    }
-
-    .social {
-        margin-top: 15px;
+        gap: var(--spacing-medium);
     }
 
     .social a {
-        display: inline-block;
-        margin: 5px 10px;
+        margin: var(--spacing-small) 10px;
+    }
+
+    /*Кастомный скроллбар*/
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: var(--color-secondary);
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: black;
+        border-radius: 5px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--color-primary);
     }
 }
