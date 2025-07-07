@@ -3,22 +3,30 @@
 <head> <!-- Секция метаданных документа -->
     <meta charset="UTF-8"> <!-- Установка кодировки UTF-8 -->
     <title>HTML-страница</title> <!-- Заголовок страницы (отображается во вкладке браузера) -->
+    <link rel="stylesheet" href="css/styles.css"> <!-- Подключение файла styles.css -->
+
 </head>
 <body> <!-- Тело документа (видимая часть страницы) -->
 
 <!-- Header -->
 <header>
-    <img src="logo.png" alt="Логотип компании" width="100"> <!-- Логотип компании -->
-    <!-- alt - альтернативный текст для изображения (важно для доступности) -->
+    <div class="logo-container"> <!-- Контейнер .logo-container для группировки логотипа и названия -->
+        <img class="logo" src="images/logo.png" alt="Логотип компании" width="100"> <!-- Логотип компании -->
+        <!-- alt - альтернативный текст для изображения (важно для доступности) -->
+        <p class="logo">Lorem ipsum</p>
+    </div>
 
     <!-- Основная навигация -->
     <nav id="section0">
-        <h2>Menu</h2>
         <ul>
             <!-- Список пунктов меню -->
-            <li><a href="#section0">Nav</a></li> <!-- #section0 - Уникальный идентификатор для якорных ссылок -->
-            <li><a href="#section1">Section 1</a></li>
-            <li><a href="#section2">Section 2</a></li>
+            <li>
+                <a href="#section0">Nav</a> <!-- #section0 - Уникальный идентификатор для якорных ссылок -->
+                <ul class="submenu">
+                    <li><a href="#section1">Section 1</a></li>
+                    <li><a href="#section2">Section 2</a></li>
+                </ul>
+            </li>
             <li><a href="#section3">Footer</a></li>
         </ul>
     </nav>
@@ -32,79 +40,48 @@
 
         <!-- Форма для ввода данных -->
         <form>
-            <div class="form-input">
-                <h2>Title</h2>
-
-                <!-- Текстовое поле -->
-                <div>
-                    <label for="text">text:</label> <!-- Связь метки с полем ввода через атрибут for -->
-                    <input type="text" id="text" name="text">
-                </div>
-
-                <!-- Поле для email -->
-                <div>
-                    <label for="email">email:</label>
-                    <input type="email" id="email" name="email">
-                </div>
-
-                <!-- Поле для пароля -->
-                <div>
-                    <label for="password">password:</label>
-                    <input type="password" id="password" name="password">
-                </div>
-
-                <!-- Радиокнопка -->
-                <div>
-                    <input type="radio" id="radio" name="radio">
-                    <label for="radio">radio</label>
-                </div>
-
-                <!-- Чекбокс -->
-                <div>
-                    <input type="checkbox" id="checkbox" name="checkbox">
-                    <label for="checkbox">checkbox</label>
-                </div>
-
-                <!-- Выпадающий список -->
-                <div>
-                    <label for="select">select:</label>
-                    <select id="select" name="select">
-                        <option value="">--Select--</option> <!-- Пустая опция по умолчанию -->
-                        <option value="value1">1</option>
-                        <option value="value2">2</option>
-                        <option value="value3">3</option>
-                    </select>
-                </div>
-            </div>
+            <input type="text" id="text" name="text" placeholder="text"> <!-- Текстовое поле -->
+            <input type="email" id="email" name="email" placeholder="email"> <!-- Поле для email -->
+            <input type="password" id="password" name="password" placeholder="password"> <!-- Поле для пароля -->
+            <label><input type="radio" id="radio1" name="radio">radio1</label> <!-- Радиокнопка -->
+            <label><input type="radio" id="radio2" name="radio">radio2</label>
+            <label><input type="checkbox" id="checkbox" name="checkbox">checkbox</label> <!-- Чекбокс -->
+            <label for="select">select:</label> <!-- Выпадающий список -->
+            <select id="select" name="select">
+                <option value="">--Select--</option> <!-- Пустая опция по умолчанию -->
+                <option value="value1">1</option>
+                <option value="value2">2</option>
+                <option value="value3">3</option>
+            </select>
+            <button type="submit">Submit</button> <!-- Кнопка -->
         </form>
     </section>
 
     <!-- Вторая секция с таблицей -->
     <section id="section2">
-        <h2>Title</h2>
+        <h1>Section 2</h1>
 
         <table>
             <!-- Создание таблицы -->
             <tr> <!-- Создаём строку заголовка-->
-                <th>a</th> <!-- Ячейка заголовка (жирный текст) -->
-                <th>b</th>
-                <th>c</th>
+                <th>text</th> <!-- Ячейка заголовка (жирный текст) -->
+                <th>number</th>
+                <th>text</th>
+            </tr>
+            <tr> <!-- Создаём строку данных -->
+                <td datatype="text">a</td> <!-- Обычная ячейка -->
+                <td datatype="number">11</td>
+                <td datatype="text">c</td>
             </tr>
             <tr>
-                <!-- Создаём строку данных -->
-                <td>a</td> <!-- Обычная ячейка -->
-                <td>b</td>
-                <td>c</td>
+                <td datatype="text">a</td>
+                <td datatype="number">22</td>
+                <td datatype="text">c</td>
             </tr>
             <tr>
-                <td>a</td>
-                <td>b</td>
-                <td>c</td>
-            </tr>
-            <tr>
-                <td>a</td>
-                <td>b</td>
-                <td>c</td>
+                <td datatype="text">a</td>
+                <td datatype="number">33</td>
+                <td datatype="text">c</td>
             </tr>
         </table>
     </section>
@@ -120,7 +97,6 @@
 
     <!-- Ссылки на соцсети -->
     <div class="social">
-        <h3>Social:</h3>
         <a href="https://vk.com" target="_blank">VK</a> <!-- target="_blank" открывает ссылку в новой вкладке -->
         <a href="https://facebook.com" target="_blank">Facebook</a>
         <a href="https://twitter.com" target="_blank">Twitter</a>

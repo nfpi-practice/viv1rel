@@ -1,0 +1,284 @@
+:root {
+    /* Цветовая палитра */
+    --color-primary: #222;
+    --color-secondary: #444;
+    --color-text: #333;
+    --color-text-light: white;
+
+    /* Размеры и отступы */
+    --spacing-small: 5px;
+    --spacing-medium: 15px;
+    --spacing-large: 20px;
+}
+
+/* Основные стили */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: grid;
+    grid-template-areas:
+        "header"
+        "main"
+        "footer";
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr;
+    grid-gap: var(--spacing-large);
+    color: var(--color-text);
+}
+
+/* Шапка */
+header {
+    grid-area: header;
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    padding: var(--spacing-large);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-medium);
+}
+
+header img.logo {
+    width: 100px;
+    border-radius: 50%;
+    border: 2px solid var(--color-text-light);
+}
+
+/* Навигация */
+nav ul {
+    display: flex;
+    gap: var(--spacing-medium);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+nav a {
+    color: var(--color-text-light);
+    text-decoration: none;
+    padding: var(--spacing-small) 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+nav ul li {
+    position: relative;
+}
+
+/* Добавляем стрелочку для пунктов с подменю */
+nav ul li:has(.submenu) > a::after {
+    content: "▼";
+    font-size: 0.6em;
+    margin-left: 5px;
+    transition: transform 0.2s ease;
+}
+
+/* Анимация стрелочки при наведении */
+nav ul li:hover:has(.submenu) > a::after {
+    transform: rotate(180deg);
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    background-color: var(--color-secondary);
+    padding: var(--spacing-small) 0;
+    min-width: 150px;
+    z-index: 1;
+}
+
+nav ul li:hover .submenu {
+    display: block;
+}
+
+/* Основное содержимое */
+main {
+    grid-area: main;
+    padding: var(--spacing-large);
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+section {
+    background-color: var(--color-text-light);
+    padding: var(--spacing-large);
+    margin-bottom: var(--spacing-large);
+    border-radius: 5px;
+}
+
+/* Форма */
+form {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: var(--spacing-medium);
+}
+
+form > label {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-items: flex-start;
+}
+
+input[type="text"], input[type="email"], input[type="password"], button, select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 100%;
+    box-sizing: border-box;
+    height: 40px;
+    margin: 5px 0;
+}
+
+input {
+    margin-right: 10px;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #777;
+    box-shadow: 0 0 0 2px rgba(119,119,119,0.2);
+}
+
+button {
+    background-color: var(--color-secondary);
+    color: var(--color-text-light);
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Таблица */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: var(--spacing-medium);
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: var(--color-secondary);
+    color: var(--color-text-light);
+}
+
+tr:nth-child(even) {
+    background-color: #b3b3b3;
+}
+
+tr:hover {
+    background-color: #5e5e5e;
+}
+
+td[datatype="number"] {
+    text-align: right;
+}
+
+td[datatype="text"] {
+    text-align: left;
+}
+
+/* Footer */
+footer {
+    grid-area: footer;
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    padding: var(--spacing-large);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer address a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.social a {
+    color: var(--color-text-light);
+    text-decoration: none;
+    margin-left: var(--spacing-medium);
+}
+
+/* Адаптивность */
+@media (max-width: 576px) {
+    body {
+        grid-gap: var(--spacing-small);
+    }
+
+    header {
+        flex-direction: column;
+        gap: var(--spacing-medium);
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    table {
+        max-width: calc(100% - 40px);
+        width: calc(100% - 40px);
+        font-size: 0.85em;
+        margin-right: 20px;
+    }
+
+    th, td {
+        padding: 6px 8px;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: var(--spacing-medium);
+    }
+
+    .social a {
+        margin: var(--spacing-small) 10px;
+    }
+
+    /*Кастомный скроллбар*/
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: var(--color-secondary);
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: black;
+        border-radius: 5px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--color-primary);
+    }
+}
