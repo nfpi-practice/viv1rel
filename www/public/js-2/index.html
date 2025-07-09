@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+    function createCounter() {
+        let count = 0;
+        return function() {
+            count += 1;
+            return count;
+        };
+    }
+
+    let counter = createCounter();
+    let callCount = prompt("Введите число вызовов функции:");
+    let result = 0;
+
+    for (let i = 0; i < callCount; i++) {
+        result = counter();
+        alert(result);
+    }
+</script>
+</body>
+</html>
