@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DOM, event handling</title>
+</head>
+<body>
+    <button id="elem">Нажми меня</button>
+    <p id="par">Параграф</p>
+
+    <script>
+        function handler() {
+            par.innerHTML = "Кнопка была нажата!";
+        }
+
+        elem.addEventListener('click', handler);
+    </script>
+</body>
+</html>
