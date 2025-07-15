@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>js-task</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        #status {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<button onclick="startLongTask()">Запустить</button>
+<div id="status">Задач нет</div>
+
+<script>
+    const tasks = {};
+    const statusElement = document.getElementById('status');
+
+    function log(message) {
+        const now = new Date();
+        console.log(`${message}`);
+    }
+
+    function startLongTask() {
+        statusElement.innerHTML = ``;
+
+        const taskId = Date.now().toString();
+
+        const minDuration = 10000; // 10 секунд
+        const maxDuration = 20000; // 20 секунд
+        const duration = Math.floor(Math.random() * (maxDuration - minDuration + 1)) + minDuration;
+
+        tasks[taskId] = {
+            status: 'в процессе',
+            result: null,
+            startTime: new Date()
+        };
+
+        log(`Задача ${taskId} начата (ожидаемая длительность: ${(duration/1000).toFixed(0)} сек)`);
+        statusElement.innerHTML += `Задача ${taskId} начата (ожидаемая длительность: ${(duration/1000).toFixed(0)} сек)<br>`;
+
+        fetch('https://jsonplaceholder.typicode.com/posts/1')
+            .then(response => response.json())
+            .then(data => {
+                log(`Задача ${taskId} инициирована на сервере`);
+                statusElement.innerHTML += `Задача ${taskId} инициирована на сервере<br>`;
+
+                pollTask(taskId);
+
+                setTimeout(() => {
+                    tasks[taskId].status = 'завершена';
+                    tasks[taskId].result = `Результат для задачи ${taskId}`;
+                    log(`Задача ${taskId} завершена через ${(duration/1000).toFixed(0)} сек`);
+                    statusElement.innerHTML += `Задача ${taskId} завершена через ${(duration / 1000).toFixed(0)} сек<br>`;
+                }, duration);
+            })
+            .catch(error => {
+                log(`Ошибка запуска задачи ${taskId}: ${error}`);
+                statusElement.innerHTML += `Ошибка запуска задачи ${taskId}: ${error}<br>`;
+                tasks[taskId].status = 'ошибка';
+                tasks[taskId].result = `Ошибка: ${error.message}`;
+            });
+    }
+
+    async function pollTask(taskId) {
+        try {
+            log(`Проверка статуса задачи ${taskId}`);
+            statusElement.innerHTML += `Проверка статуса задачи ${taskId}<br>`;
+
+            const response = await new Promise(resolve => {
+                setTimeout(() => {
+                    const task = tasks[taskId];
+                    resolve({
+                        ready: task.status === 'завершена' || task.status === 'ошибка',
+                        result: task.result
+                    });
+                }, 1000);
+            });
+
+            if (response.ready) {
+                log(`Задача ${taskId} завершена с результатом: ${response.result}`);
+                statusElement.innerHTML += `Завершено: ${response.result}<br>`;
+            } else {
+                log(`Задача ${taskId} ещё выполняется`);
+                statusElement.innerHTML += `Задача ${taskId} ещё выполняется<br>`;
+                setTimeout(() => pollTask(taskId), 2000);
+            }
+        } catch (error) {
+            log(`Ошибка проверки задачи ${taskId}: ${error}`);
+            statusElement.innerHTML += `Ошибка проверки задачи ${taskId}: ${error}<br>`;
+            console.error('Ошибка опроса:', error);
+        }
+    }
+</script>
+</body>
+</html>
