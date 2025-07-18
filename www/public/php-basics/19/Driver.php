@@ -21,6 +21,15 @@ class Driver extends Employee
 
     public function setCategory($category)
     {
-        $this->category = $category;
+        if ($this->isCategoryCorrect($category)) {
+            $this->category = strtoupper($category);
+        }
+    }
+
+    private function isCategoryCorrect($category)
+    {
+        $allowedCategories = ['A', 'B', 'C', 'D'];
+        $category = strtoupper($category);
+        return in_array($category, $allowedCategories);
     }
 }
