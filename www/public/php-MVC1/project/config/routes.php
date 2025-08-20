@@ -15,5 +15,6 @@
         new Route('/product/:n/', 'product', 'show'),
         new Route('/products/all/', 'product', 'all'),
         new Route('/show/:n/', 'page', 'show'),
+        new Route('/test/', 'page', 'test'),
 	];
 	
