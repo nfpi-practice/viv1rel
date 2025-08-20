@@ -3,6 +3,7 @@
 namespace Project\Controllers;
 
 use \Core\Controller;
+use \Project\Models\Product;
 
 class ProductController extends Controller
 {
@@ -62,5 +63,29 @@ class ProductController extends Controller
         $this->title = 'Действие all контроллера product';
 
         return $this->render('product/all', ['products' => $this->products]);
+    }
+
+    public function one($params)
+    {
+        $product = (new Product) -> getById($params['id']);
+
+        $this->title = $product['title'];
+        return $this->render('product/one', [
+            'title' => $this->title,
+            'price'    => $product['price'],
+            'quantity' => $product['quantity'],
+            'category' => $product['category']
+        ]);
+    }
+
+    public function every()
+    {
+        $this->title = 'Список всех страниц';
+
+        $products = (new Product) -> getAll();
+        return $this->render('product/every', [
+            'title' => $this->title,
+            'products' => $products
+        ]);
     }
 }

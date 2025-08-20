@@ -56,4 +56,26 @@ class PageController extends Controller
         var_dump($data);
         echo '<br>';
     }
+
+    public function one($params)
+    {
+        $page = (new Page) -> getById($params['id']);
+
+        $this->title = $page['title'];
+        return $this->render('page/one', [
+            'text' => $page['text'],
+            'h1' => $this->title
+        ]);
+    }
+
+    public function all()
+    {
+        $this->title = 'Список всех страниц';
+
+        $pages = (new Page) -> getAll();
+        return $this->render('page/all', [
+            'pages' => $pages,
+            'h1' => $this->title
+        ]);
+    }
 }
