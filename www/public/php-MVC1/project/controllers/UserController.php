@@ -21,6 +21,8 @@ class UserController extends Controller
 
     public function show($params)
     {
+        $this->title = 'Действие show контроллера user';
+
         $id = $params['id'];
 
         if ($id && isset($this->users[$id])) {
@@ -30,6 +32,8 @@ class UserController extends Controller
 
     public function info($params)
     {
+        $this->title = 'Действие info контроллера user';
+
         $id = $params['id'];
         $key = $params['key'];
         $keys = ['name', 'age', 'salary'];
@@ -41,11 +45,15 @@ class UserController extends Controller
 
     public function all()
     {
+        $this->title = 'Действие all контроллера user';
+
         print_r($this->users);
     }
 
     public function first($param)
     {
+        $this->title = 'Действие first контроллера user';
+
         for ($id = 1; $id < $param + 1; $id++) {
             print_r($this->users[$id]);
         }

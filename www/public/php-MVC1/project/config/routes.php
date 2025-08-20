@@ -11,8 +11,9 @@
         new Route('/user/:id/:key/', 'user', 'info'),
         new Route('/user/all/', 'user', 'all'),
         new Route('/user/first/:n/', 'user', 'first'),
-        new Route('/act', 'page', 'act'),
-        new Route('/product/:n', 'product', 'show'),
-        new Route('/products/all', 'product', 'all'),
+        new Route('/act/', 'page', 'act'),
+        new Route('/product/:n/', 'product', 'show'),
+        new Route('/products/all/', 'product', 'all'),
+        new Route('/show/:n/', 'page', 'show'),
 	];
 	
