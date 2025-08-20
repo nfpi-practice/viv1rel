@@ -11,5 +11,6 @@
         new Route('/user/:id/:key/', 'user', 'info'),
         new Route('/user/all/', 'user', 'all'),
         new Route('/user/first/:n/', 'user', 'first'),
+        new Route('/act', 'page', 'act'),
 	];
 	
