@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title><?= $title ?></title>
+    <link rel="stylesheet" href="/project/webroot/styles.css">
 </head>
 <body>
 <header>
@@ -14,6 +15,7 @@
     </aside>
     <main>
         <?= $content ?>
+        <img src="/project/webroot/68.jpg">
     </main>
     <aside class="sidebar right">
         правый сайдбар
