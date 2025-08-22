@@ -1,4 +1,5 @@
 <?php
+
 namespace Core;
 
 error_reporting(E_ALL);
@@ -8,6 +9,8 @@ spl_autoload_register(function($class) {
     $root = $_SERVER['DOCUMENT_ROOT'];
     $ds = DIRECTORY_SEPARATOR;
 
-    $file = $root . $ds . str_replace('\\', $ds, $class) . '.php';
-    require $file;;
+    $filename = $root . $ds . str_replace('\\', $ds, $class) . '.php';
+    require($filename);
 });
+
+$routes = require $_SERVER['DOCUMENT_ROOT'] . '/project/config/routes.php';
